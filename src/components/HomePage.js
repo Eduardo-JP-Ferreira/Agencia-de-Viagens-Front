@@ -1,73 +1,90 @@
 import styled from "styled-components"
 import { useEffect, useState } from "react";
 import axios from "axios"
+import Hotels from "./Hotels";
 
-export default function HomePage(){
-    const [checkPassagem, setCheckPassagem] = useState(false)
-    const [checkHotel, setCheckHotel] = useState(false)
+export default function HomePage() {
+    const [checkPassagem, setCheckPassagem] = useState(true)
+    const [checkHotel, setCheckHotel] = useState(true)
     const [cities, setCities] = useState([])
-    
+    const [origem, setOrigem] = useState("default")
+    const [destino, setDestino] = useState("default")
 
     useEffect(() => {
 
-        axios.get(`//${process.env.REACT_APP_API_URL}/city`,) 
+        axios.get(`${process.env.REACT_APP_API_URL}/city`,)
             .then((res) => {
-              
-              setCities(res.data)
-
+                setCities(res.data)
+                // console.log(res.data)
             })
             .catch((err) => alert(err.message))
     }, [])
 
-    const handleChange = (type) => {
-        if(type === "passagem") setCheckPassagem(!checkPassagem);
-        else setCheckHotel(!checkHotel);
-      };
-    return(
+    function pesquisar(event) {
+        event.preventDefault();
+        // alert("Pass ", checkPassagem)
+        console.log("origem ", origem)
+        console.log("destino ", destino)
+
+        if(destino === "default") alert("Selecione uma cidade de destino")
+        else if(origem === destino) alert("As cidades de Origem e Destino precisam ser diferentes!")
+        else{
+
+        }
+  
+    }
+    return (
         <HomeContainer>
             <Header>
                 <h1>Agência de Viagens</h1>
                 <img src="././img/icone.jpg"></img>
             </Header>
             <SelectOptions>
-                <label>
-                    Cidade de Origem:
-                    <select>
-                        <option value="default">Selecione a cidade</option>
-                        {cities.map((item)=>                            
-                            <option value={item.name}>
-                                {item.name} - {item.state}
-                            </option>                            
-                        )}
-                    </select>
-                </label>
-                <label>
-                    Cidade de Destino:
-                    <select>
-                        <option value="default" >Selecione a cidade</option>
-                        {cities.map((item)=>                            
-                            <option value={item.name}>
-                                {item.name}
-                            </option>                            
-                        )}
-                    </select>
-                </label>
-                <label>
-                    <input 
-                        type="checkbox" value="passagem" 
-                        checked={checkPassagem} onChange={e=>handleChange(e.target.value)}
-                    />
-                    Passagens
-                </label>
-                <label>
-                    <input 
-                        type="checkbox" value="hospedagem"
-                        checked={checkHotel} onChange={e=>handleChange(e.target.value)}
-                    />
-                    Hospedagens
-                </label>
-                
+                <form onSubmit={pesquisar}>
+                    <div>
+                        <label>
+                            Cidade de Origem:
+                            <select onChange={e => setOrigem(e.target.value)}>
+                                <option value="default">Selecione a cidade (opcional)</option>
+                                {cities.map((item) =>
+                                    <option value={item.id}>
+                                        {item.name} - {item.state}
+                                    </option>
+                                )}
+                            </select>
+                        </label>
+                        <label>
+                            Cidade de Destino:
+                            <select onChange={e => setDestino(e.target.value)}>
+                                <option value="default" >Selecione a cidade</option>
+                                {cities.map((item) =>
+                                    <option value={item.id}>
+                                        {item.name} - {item.state}
+                                    </option>
+                                )}
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input
+                                type="checkbox" value="passagem"
+                                checked={checkPassagem} onChange={e => setCheckPassagem(!checkPassagem)}
+                            />
+                            Passagens
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox" value="hospedagem"
+                                checked={checkHotel} onChange={e => setCheckHotel(!checkHotel)}
+                            />
+                            Hospedagens
+                        </label>
+                        <button type="submit">Pesquisar</button>
+                    </div>
+                </form>
             </SelectOptions>
+            <Hotels/>
         </HomeContainer>
     )
 }
@@ -97,23 +114,36 @@ const SelectOptions = styled.div`
     justify-content: center;
     align-items: center;
     min-height: 40px;
+    /* height: 100%; */
     max-width: 100vw;
     background-color: lightcoral;
+    div{
+        background-color: aquamarine;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        width: 90vw;
+    }
     label{
         font-size: 25px;
         font-weight: bold;
     }
     select{
-        width: 20vw;
+        width: 25vw;
         height: 28px;
         font-size: 20px;
         margin-left: 10px;
         margin-right: 10px;
     }
     input{
-        margin-left: 10px;
+        margin-left: 15px;
         margin-right: 8px;
         transform: scale(1.5);
-
     }
+    button{
+        margin-left: 10px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
 `
