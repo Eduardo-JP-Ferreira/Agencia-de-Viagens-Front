@@ -2,11 +2,11 @@ import styled from "styled-components"
 import { useEffect, useState } from "react";
 import axios from "axios"
 
-export default function Hotels({hotels}) {
+export default function Hotels({hotels, tickets}) {
 
     return(
         <HotelsPart>
-            <h1>HOTEIS E PASSAGENS AQUI</h1>
+            <h1>HOTEIS</h1>
             <HotelContainer> 
                 {hotels.map((item) =>
                     <Hotel>
@@ -16,6 +16,16 @@ export default function Hotels({hotels}) {
                     </Hotel>
                 )}
             </HotelContainer> 
+            <h1>PASSAGENS</h1>
+            <TicketContainer> 
+                {tickets.map((item) =>
+                    <Ticket>
+                        <img src="././assets/icone.jpg"></img>
+                        <h2>De <b>{item.originName}</b> Para <b>{item.destinationName}</b></h2>
+                        <h3>R$ {item.price/100}</h3>
+                    </Ticket>
+                )}
+            </TicketContainer> 
         </HotelsPart>
     )
 }
@@ -50,6 +60,34 @@ const Hotel = styled.div`
     margin-bottom: 10px;
     img{
         width: 150px;
+        height: 100px;
+        margin-bottom: 10px;
+    }
+    h2{
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    h3{
+        font-size: 22px;
+    }
+`
+const TicketContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: lightgoldenrodyellow;
+`
+const Ticket = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    height: 200px;
+    background-color: lightgreen;
+    margin-right: 30px;
+    margin-bottom: 10px;
+    img{
+        width: 100%;
         height: 100px;
         margin-bottom: 10px;
     }

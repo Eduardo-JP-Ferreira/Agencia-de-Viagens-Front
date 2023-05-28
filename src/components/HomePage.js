@@ -10,6 +10,7 @@ export default function HomePage() {
     const [origem, setOrigem] = useState("default")
     const [destino, setDestino] = useState("default")
     const [hotels, setHotels] = useState([])
+    const [tickets, setTickets] = useState([])
     useEffect(() => {
 
         axios.get(`${process.env.REACT_APP_API_URL}/city`,)
@@ -30,19 +31,25 @@ export default function HomePage() {
         else if(origem === destino) alert("As cidades de Origem e Destino precisam ser diferentes!")
         else if(origem === "default"){
             axios.get(`${process.env.REACT_APP_API_URL}/hotels/${destino}`,)
-            .then((res) => {
-                setHotels(res.data)
-                console.log(res.data)
-            })
-            .catch((err) => alert(err.message))
-        }
-  
+                .then((res) => {
+                    setHotels(res.data)
+                    console.log(res.data)
+                })
+                .catch((err) => alert(err.message))
+
+            axios.get(`${process.env.REACT_APP_API_URL}/tickets/${destino}`,)
+                .then((res) => {
+                    setTickets(res.data)
+                    console.log(res.data)
+                })
+                .catch((err) => alert(err.message))
+        }  
     }
     return (
         <HomeContainer>
             <Header>
                 <h1>Agência de Viagens</h1>
-                <img src="././img/icone.jpg"></img>
+                <img src="././assets/icone.jpg"></img>
             </Header>
             <SelectOptions>
                 <form onSubmit={pesquisar}>
@@ -89,7 +96,7 @@ export default function HomePage() {
                     </div>
                 </form>
             </SelectOptions>
-            <Hotels hotels={hotels}/>
+            <Hotels hotels={hotels} tickets={tickets}/>
         </HomeContainer>
     )
 }
