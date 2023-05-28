@@ -9,7 +9,7 @@ export default function HomePage() {
     const [cities, setCities] = useState([])
     const [origem, setOrigem] = useState("default")
     const [destino, setDestino] = useState("default")
-
+    const [hotels, setHotels] = useState([])
     useEffect(() => {
 
         axios.get(`${process.env.REACT_APP_API_URL}/city`,)
@@ -28,8 +28,13 @@ export default function HomePage() {
 
         if(destino === "default") alert("Selecione uma cidade de destino")
         else if(origem === destino) alert("As cidades de Origem e Destino precisam ser diferentes!")
-        else{
-
+        else if(origem === "default"){
+            axios.get(`${process.env.REACT_APP_API_URL}/hotels/${destino}`,)
+            .then((res) => {
+                setHotels(res.data)
+                console.log(res.data)
+            })
+            .catch((err) => alert(err.message))
         }
   
     }
@@ -84,7 +89,7 @@ export default function HomePage() {
                     </div>
                 </form>
             </SelectOptions>
-            <Hotels/>
+            <Hotels hotels={hotels}/>
         </HomeContainer>
     )
 }
@@ -92,6 +97,7 @@ export default function HomePage() {
 const HomeContainer = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     height: calc(100vh - 50px);
 `
 
@@ -99,9 +105,10 @@ const Header = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 26px;
     color: black;
+    width: 90vw;
     background-color: lightgoldenrodyellow;
     img{
         width: 50px;
