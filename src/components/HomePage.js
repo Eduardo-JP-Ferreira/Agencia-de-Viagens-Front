@@ -170,9 +170,11 @@ const SelectOptions = styled.div`
     max-width: 100vw;
     margin-top: 10px;
     margin-bottom: 20px;
+    /* padding: 10px; */
     /* background-color: lightcoral; */
     div{
         background-color: lightblue;
+        padding: 4px;
         display: flex;
         justify-content: center;
         margin-bottom: 10px;

@@ -184,7 +184,7 @@ const TicketContainer = styled.div`
     width: 100%;
     background-color: lightblue;
     padding: 10px;
-    margin-top: 15px;
+    margin-top: 10px;
     top: 0;
 `
 const Ticket = styled.div`
