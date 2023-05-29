@@ -82,7 +82,7 @@ export default function HomePage({icone}) {
             <SelectOptions>
                 <form onSubmit={pesquisar}>
                     <div>
-                        <label>
+                        {/* <label>
                             Cidade de Origem:
                             <select onChange={e => setOrigem(e.target.value)}>
                                 <option value="default">Selecione a cidade (opcional)</option>
@@ -92,7 +92,7 @@ export default function HomePage({icone}) {
                                     </option>
                                 )}
                             </select>
-                        </label>
+                        </label> */}
                         <label>
                             Cidade de Destino:
                             <select onChange={e => setDestino(e.target.value)}>
