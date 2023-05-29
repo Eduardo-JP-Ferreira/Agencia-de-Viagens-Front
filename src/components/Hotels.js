@@ -1,12 +1,13 @@
 import styled from "styled-components"
-import { useEffect, useState } from "react";
-import axios from "axios"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom"
 
 export default function Hotels({hotels, tickets, 
     filterHotels, setFilterHotels, filterTickets, setFilterTickets,
     minHotel, setMinHotel, maxHotel, setMaxHotel,
     minTicket, setMinTicket, maxTicket,setMaxTicket 
 }) {
+    const navigate = useNavigate();
     
     function filtrar(event){
         event.preventDefault();
@@ -18,17 +19,21 @@ export default function Hotels({hotels, tickets,
             && item.price <= maxTicket*100);
         setFilterTickets(filteredTickets)
     }
+
+    function infos(id){
+        navigate(`/hotels/view/${id}`);
+    }
     return(        
         <HotelsPart>
             <h1>HOTEIS</h1>
             <HotelContainer> 
                 <OptionsContainer>
                     {filterHotels.map((item) =>
-                        <Hotel>
-                            <img src={item.image}></img>
+                        <Hotel value={item.id} onClick={(e) => {infos(item.id);}}>
+                            <img src={item.image} alt="Imagem do hotel"></img>
                             <h2>{item.name}</h2>
-                            <h3>R$ {item.pricePerDay/100}</h3>
-                        </Hotel>
+                            <h3>R$ {item.pricePerDay / 100}</h3>
+                        </Hotel>                    
                     )}
                 </OptionsContainer>
                 <FilterContainer>
@@ -57,7 +62,7 @@ export default function Hotels({hotels, tickets,
                 <OptionsContainer>
                     {filterTickets.map((item) =>
                         <Ticket>
-                            <img src="././assets/icone.jpg"></img>
+                            <img src="././assets/icone.jpg" alt="Imagem Passagem"></img>
                             <h2>De <b>{item.originName}</b> Para <b>{item.destinationName}</b></h2>
                             <h3>R$ {item.price/100}</h3>
                         </Ticket>

@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { useEffect, useState } from "react";
 import axios from "axios"
 import Hotels from "./Hotels";
-
+import HeaderPage from "./Header";
 export default function HomePage() {
     const [checkPassagem, setCheckPassagem] = useState(true)
     const [checkHotel, setCheckHotel] = useState(true)
@@ -41,7 +41,7 @@ export default function HomePage() {
                     setHotels(res.data)
                     // const filteredHotels = res.data.filter(item => item.pricePerDay >= 1900 && item.pricePerDay <= 200000);
                     setFilterHotels(res.data)
-                    console.log(res.data)
+                    // console.log(res.data)
                 })
                 .catch((err) => alert(err.message))
 
@@ -49,7 +49,7 @@ export default function HomePage() {
                 .then((res) => {
                     setTickets(res.data)
                     setFilterTickets(res.data)
-                    console.log(res.data)
+                    // console.log(res.data)
                 })
                 .catch((err) => alert(err.message))
 
@@ -61,10 +61,11 @@ export default function HomePage() {
     }
     return (
         <HomeContainer>
-            <Header>
+            <HeaderPage/>
+            {/* <Header>
                 <h1>Agência de Viagens</h1>
                 <img src="././assets/icone.jpg"></img>
-            </Header>
+            </Header> */}
             <SelectOptions>
                 <form onSubmit={pesquisar}>
                     <div>
@@ -129,21 +130,21 @@ const HomeContainer = styled.div`
     height: calc(100vh - 50px);
 `
 
-const Header = styled.header`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    font-size: 26px;
-    color: black;
-    width: 90vw;
-    background-color: lightgoldenrodyellow;
-    img{
-        width: 50px;
-        height: 50px;
-        margin-left: 20px;
-    }
-`
+// const Header = styled.header`
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin-bottom: 20px;
+//     font-size: 26px;
+//     color: black;
+//     width: 90vw;
+//     background-color: lightgoldenrodyellow;
+//     img{
+//         width: 50px;
+//         height: 50px;
+//         margin-left: 20px;
+//     }
+// `
 const SelectOptions = styled.div`
     display: flex;
     justify-content: center;
