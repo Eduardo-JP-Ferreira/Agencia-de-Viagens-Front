@@ -11,6 +11,12 @@ export default function HomePage() {
     const [destino, setDestino] = useState("default")
     const [hotels, setHotels] = useState([])
     const [tickets, setTickets] = useState([])
+    const [filterHotels, setFilterHotels] = useState([])
+    const [filterTickets, setFilterTickets] = useState([])
+    const [minHotel, setMinHotel] = useState(0)
+    const [maxHotel, setMaxHotel] = useState(500)
+    const [minTicket, setMinTicket] = useState(0)
+    const [maxTicket, setMaxTicket] = useState(2000)
     useEffect(() => {
 
         axios.get(`${process.env.REACT_APP_API_URL}/city`,)
@@ -33,6 +39,8 @@ export default function HomePage() {
             axios.get(`${process.env.REACT_APP_API_URL}/hotels/${destino}`,)
                 .then((res) => {
                     setHotels(res.data)
+                    // const filteredHotels = res.data.filter(item => item.pricePerDay >= 1900 && item.pricePerDay <= 200000);
+                    setFilterHotels(res.data)
                     console.log(res.data)
                 })
                 .catch((err) => alert(err.message))
@@ -40,9 +48,15 @@ export default function HomePage() {
             axios.get(`${process.env.REACT_APP_API_URL}/tickets/${destino}`,)
                 .then((res) => {
                     setTickets(res.data)
+                    setFilterTickets(res.data)
                     console.log(res.data)
                 })
                 .catch((err) => alert(err.message))
+
+        setMinHotel(0)
+        setMaxHotel(500)
+        setMinTicket(0)
+        setMaxTicket(2000)
         }  
     }
     return (
@@ -96,7 +110,14 @@ export default function HomePage() {
                     </div>
                 </form>
             </SelectOptions>
-            <Hotels hotels={hotels} tickets={tickets}/>
+            <Hotels hotels={hotels} setHotels={setHotels} tickets={tickets}
+             filterHotels={filterHotels} setFilterHotels={setFilterHotels}
+             filterTickets={filterTickets} setFilterTickets={setFilterTickets}
+             minHotel={minHotel} setMinHotel={setMinHotel}
+             maxHotel={maxHotel} setMaxHotel={setMaxHotel}
+             minTicket={minTicket} setMinTicket={setMinTicket}
+             maxTicket={maxTicket} setMaxTicket={setMaxTicket} 
+             />
         </HomeContainer>
     )
 }
