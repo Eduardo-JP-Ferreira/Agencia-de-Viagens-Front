@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom"
 export default function Hotels({hotels, tickets, 
     filterHotels, setFilterHotels, filterTickets, setFilterTickets,
     minHotel, setMinHotel, maxHotel, setMaxHotel,
-    minTicket, setMinTicket, maxTicket,setMaxTicket 
+    minTicket, setMinTicket, maxTicket,setMaxTicket, 
+    checkHotel, checkPassagem
 }) {
     const navigate = useNavigate();
     
@@ -28,8 +29,9 @@ export default function Hotels({hotels, tickets,
     }
     return(        
         <HotelsPart>
-            <h1>HOTEIS</h1>
+            {checkHotel &&  (
             <HotelContainer> 
+                <h1>HOTEIS</h1>
                 <OptionsContainer>
                     {filterHotels.map((item) =>
                         <Hotel value={item.id} onClick={(e) => {infosHotel(item.id);}}>
@@ -60,8 +62,10 @@ export default function Hotels({hotels, tickets,
                     </form>
                 </FilterContainer>
             </HotelContainer> 
-            <h1>PASSAGENS</h1>
+            )}
+            {checkPassagem &&  (
             <TicketContainer> 
+                <h1>PASSAGENS</h1>
                 <OptionsContainer>
                     {filterTickets.map((item) =>
                         <Ticket value={item.id} onClick={(e) => {infosTicket(item.id);}}>
@@ -92,6 +96,7 @@ export default function Hotels({hotels, tickets,
                     </form>
                 </FilterContainer>   
             </TicketContainer> 
+            )}
         </HotelsPart>
     )
 }
@@ -99,14 +104,13 @@ const HotelsPart = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 10px;
     height: 100%;
     width: 90vw;
     /* background-color: lightgray; */
     h1{
-        margin-top: 15px;
         color: black;
-          margin-bottom: 10px;
+          margin-bottom: 20px;
           font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
           font-size: 20px;
           background-color: lightcyan;
@@ -118,6 +122,7 @@ const HotelsPart = styled.div`
 const HotelContainer = styled.div`
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
     background-color: lightblue;
     padding: 10px;
@@ -179,6 +184,8 @@ const TicketContainer = styled.div`
     width: 100%;
     background-color: lightblue;
     padding: 10px;
+    margin-top: 15px;
+    top: 0;
 `
 const Ticket = styled.div`
     display: flex;

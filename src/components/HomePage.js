@@ -132,6 +132,7 @@ export default function HomePage({icone}) {
                 maxHotel={maxHotel} setMaxHotel={setMaxHotel}
                 minTicket={minTicket} setMinTicket={setMinTicket}
                 maxTicket={maxTicket} setMaxTicket={setMaxTicket} 
+                checkHotel={checkHotel} checkPassagem={checkPassagem}
                 />
             )}
         </HomeContainer>
@@ -163,10 +164,11 @@ const HomeContainer = styled.div`
 const SelectOptions = styled.div`
     display: flex;
     justify-content: center;
-    /* align-items: center; */
+    align-items: center;
     min-height: 40px;
-    height: 100%;
+    /* height: 100%; */
     max-width: 100vw;
+    margin-top: 10px;
     margin-bottom: 20px;
     /* background-color: lightcoral; */
     div{
