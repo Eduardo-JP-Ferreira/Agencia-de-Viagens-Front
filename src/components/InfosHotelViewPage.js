@@ -87,10 +87,11 @@ const HotelView= styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    padding: 20px;
+    /* margin-top: 10px; */
     height: 100%;
     width: 90vw;
-    background-color: lightgray;
+    /* background-color: lightgray; */
     img{
         max-width: 30vW;
         max-height: 30vH;
@@ -103,7 +104,7 @@ const Infos= styled.div`
     margin-top: 20px;
     height: 100%;
     width: 100%;
-    background-color: lightgray;
+    /* background-color: lightgray; */
     h1{
         color: black;
         margin-bottom: 20px;
@@ -127,7 +128,7 @@ const Comodidades= styled.div`
     margin-top: 20px;
     height: 100%;
     width: 100%;
-    background-color: lightgray;
+    /* background-color: lightgray; */
     h1{
         color: black;
         margin-bottom: 20px;
@@ -151,7 +152,7 @@ const CommodityItens= styled.div`
     margin-top: 20px;
     height: 100%;
     width: 100%;
-    background-color: lightgray;
+    /* background-color: lightgray; */
     font-size: 30px;
     h2{
         color: black;

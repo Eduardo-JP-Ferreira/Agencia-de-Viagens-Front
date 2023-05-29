@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import Hotels from "./Hotels";
 import HeaderPage from "./Header";
-export default function HomePage() {
+export default function HomePage({icone}) {
     const [checkPassagem, setCheckPassagem] = useState(true)
     const [checkHotel, setCheckHotel] = useState(true)
     const [cities, setCities] = useState([])
-    const [origem, setOrigem] = useState("default")
-    const [destino, setDestino] = useState("default")
+    const [origem, setOrigem] = useState(null)
+    const [first, setFirst] = useState(null)
+    const [destino, setDestino] = useState(null)
     const [hotels, setHotels] = useState([])
     const [tickets, setTickets] = useState([])
     const [filterHotels, setFilterHotels] = useState([])
@@ -33,12 +34,23 @@ export default function HomePage() {
         console.log("origem ", origem)
         console.log("destino ", destino)
 
-        if(destino === "default") alert("Selecione uma cidade de destino")
-        else if(origem === destino) alert("As cidades de Origem e Destino precisam ser diferentes!")
-        else if(origem === "default"){
+        if(destino === null || destino === "default"){
+            alert("Selecione uma cidade de destino")
+            setFirst(null)
+        } 
+        else if(origem !== "default" && origem !== null){
+            alert("Função em desenvolvimento, Favor não selecionar nenhuma Cidade de Origem!")
+            setFirst(null)
+        } 
+        else if(origem === destino){
+            alert("As cidades de Origem e Destino precisam ser diferentes!")
+            setFirst(null)
+        } 
+        else if(origem === "default" || origem === null){
             axios.get(`${process.env.REACT_APP_API_URL}/hotels/${destino}`,)
                 .then((res) => {
                     setHotels(res.data)
+                    setFirst("Ok")
                     // const filteredHotels = res.data.filter(item => item.pricePerDay >= 1900 && item.pricePerDay <= 200000);
                     setFilterHotels(res.data)
                     // console.log(res.data)
@@ -57,11 +69,12 @@ export default function HomePage() {
         setMaxHotel(500)
         setMinTicket(0)
         setMaxTicket(2000)
-        }  
+        }
+ 
     }
     return (
         <HomeContainer>
-            <HeaderPage/>
+            <HeaderPage icone={icone}/>
             {/* <Header>
                 <h1>Agência de Viagens</h1>
                 <img src="././assets/icone.jpg"></img>
@@ -111,14 +124,16 @@ export default function HomePage() {
                     </div>
                 </form>
             </SelectOptions>
-            <Hotels hotels={hotels} setHotels={setHotels} tickets={tickets}
-             filterHotels={filterHotels} setFilterHotels={setFilterHotels}
-             filterTickets={filterTickets} setFilterTickets={setFilterTickets}
-             minHotel={minHotel} setMinHotel={setMinHotel}
-             maxHotel={maxHotel} setMaxHotel={setMaxHotel}
-             minTicket={minTicket} setMinTicket={setMinTicket}
-             maxTicket={maxTicket} setMaxTicket={setMaxTicket} 
-             />
+            {first &&  (
+                <Hotels hotels={hotels} setHotels={setHotels} tickets={tickets}
+                filterHotels={filterHotels} setFilterHotels={setFilterHotels}
+                filterTickets={filterTickets} setFilterTickets={setFilterTickets}
+                minHotel={minHotel} setMinHotel={setMinHotel}
+                maxHotel={maxHotel} setMaxHotel={setMaxHotel}
+                minTicket={minTicket} setMinTicket={setMinTicket}
+                maxTicket={maxTicket} setMaxTicket={setMaxTicket} 
+                />
+            )}
         </HomeContainer>
     )
 }
@@ -148,13 +163,14 @@ const HomeContainer = styled.div`
 const SelectOptions = styled.div`
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     min-height: 40px;
-    /* height: 100%; */
+    height: 100%;
     max-width: 100vw;
-    background-color: lightcoral;
+    margin-bottom: 20px;
+    /* background-color: lightcoral; */
     div{
-        background-color: aquamarine;
+        background-color: lightblue;
         display: flex;
         justify-content: center;
         margin-bottom: 10px;

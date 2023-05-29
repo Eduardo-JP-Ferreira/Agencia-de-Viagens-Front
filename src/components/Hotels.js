@@ -20,8 +20,11 @@ export default function Hotels({hotels, tickets,
         setFilterTickets(filteredTickets)
     }
 
-    function infos(id){
+    function infosHotel(id){
         navigate(`/hotels/view/${id}`);
+    }
+    function infosTicket(id){
+        navigate(`/tickets/view/${id}`);
     }
     return(        
         <HotelsPart>
@@ -29,7 +32,7 @@ export default function Hotels({hotels, tickets,
             <HotelContainer> 
                 <OptionsContainer>
                     {filterHotels.map((item) =>
-                        <Hotel value={item.id} onClick={(e) => {infos(item.id);}}>
+                        <Hotel value={item.id} onClick={(e) => {infosHotel(item.id);}}>
                             <img src={item.image} alt="Imagem do hotel"></img>
                             <h2>{item.name}</h2>
                             <h3>R$ {item.pricePerDay / 100}</h3>
@@ -61,7 +64,7 @@ export default function Hotels({hotels, tickets,
             <TicketContainer> 
                 <OptionsContainer>
                     {filterTickets.map((item) =>
-                        <Ticket>
+                        <Ticket value={item.id} onClick={(e) => {infosTicket(item.id);}}>
                             <img src="././assets/icone.jpg" alt="Imagem Passagem"></img>
                             <h2>De <b>{item.originName}</b> Para <b>{item.destinationName}</b></h2>
                             <h3>R$ {item.price/100}</h3>
@@ -96,34 +99,42 @@ const HotelsPart = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 30px;
     height: 100%;
     width: 90vw;
-    background-color: lightgray;
+    /* background-color: lightgray; */
     h1{
-        color: blue;
-        margin-bottom: 20px;
+        margin-top: 15px;
+        color: black;
+          margin-bottom: 10px;
+          font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+          font-size: 20px;
+          background-color: lightcyan;
+          width: 100%;
+          display: flex;
+          justify-content: center;
     }
 `
 const HotelContainer = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
-    background-color: lightgoldenrodyellow;
+    background-color: lightblue;
+    padding: 10px;
 `
 const OptionsContainer = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 70%;
-    background-color: lightcyan;
+    /* background-color: lightcyan; */
 `
 const FilterContainer = styled.div`
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     width: 30%;
-    background-color: lightcoral;
+    background-color: lightseagreen;
     h1{
         font-size: 25px;
         color: black;
@@ -145,7 +156,7 @@ const Hotel = styled.div`
     flex-direction: column;
     width: 150px;
     height: 200px;
-    background-color: lightgreen;
+    background-color: white;
     margin-right: 30px;
     margin-bottom: 10px;
     img{
@@ -166,14 +177,15 @@ const TicketContainer = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    background-color: lightgoldenrodyellow;
+    background-color: lightblue;
+    padding: 10px;
 `
 const Ticket = styled.div`
     display: flex;
     flex-direction: column;
     width: 180px;
     height: 200px;
-    background-color: lightgreen;
+    background-color: white; 
     margin-right: 30px;
     margin-bottom: 10px;
     img{

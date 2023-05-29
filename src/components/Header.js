@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import Hotels from "./Hotels";
 
-export default function HeaderPage() {
+export default function HeaderPage({icone}) {
     return(
         <Header>
             <h1>Agência de Viagens</h1>
-            <img src="././assets/icone.jpg"></img>
+            <img src={icone}></img>
         </Header>
     )
 }
